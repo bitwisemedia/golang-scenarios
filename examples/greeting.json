@@ -1,0 +1,17 @@
+{
+  "evals": [
+    {
+      "name": "greeting",
+      "expectations": ["is polite", "mentions the user by name"],
+      "assertions": [{ "kind": "contains", "value": "hello" }]
+    },
+    {
+      "name": "farewell",
+      "expectations": ["wraps up without introducing new topics"],
+      "assertions": [
+        { "kind": "contains", "value": "goodbye" },
+        { "kind": "max-length", "value": "280" }
+      ]
+    }
+  ]
+}
