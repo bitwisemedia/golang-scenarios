@@ -60,7 +60,15 @@ func ClearSession(w http.ResponseWriter) {
 
 // clearCookie expires one cookie.
 func clearCookie(w http.ResponseWriter, name string) {
-	http.SetCookie(w, &http.Cookie{Name: name, Value: "", Path: "/", MaxAge: -1})
+	http.SetCookie(w, &http.Cookie{
+		Name:     name,
+		Value:    "",
+		Path:     "/",
+		MaxAge:   -1,
+		HttpOnly: true,
+		Secure:   true,
+		SameSite: http.SameSiteLaxMode,
+	})
 }
 
 // Provider describes the sign-in surface the SPA renders.
@@ -83,6 +91,7 @@ func SetProviderCookie(w http.ResponseWriter, p Provider, maxAge time.Duration) 
 		Value:    base64.RawURLEncoding.EncodeToString(raw),
 		Path:     "/",
 		MaxAge:   int(maxAge.Seconds()),
+		Secure:   true,
 		SameSite: http.SameSiteLaxMode,
 	})
 	return nil
